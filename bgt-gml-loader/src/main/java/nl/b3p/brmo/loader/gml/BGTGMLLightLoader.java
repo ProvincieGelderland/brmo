@@ -256,7 +256,7 @@ public class BGTGMLLightLoader {
         try {
             result = storeFeatureCollection(new FileInputStream(gml), gml.getName().toLowerCase());
         } catch (SAXException | ParserConfigurationException ex) {
-            LOG.error("Er is een parse fout opgetreden.", ex);
+            LOG.error("Er is een parse fout opgetreden tijdens verwerken van: " + gml.getCanonicalPath(), ex);
         }
         return result;
     }
@@ -419,8 +419,8 @@ public class BGTGMLLightLoader {
                     }
                 }
             }
-            opmerkingen.append("Aantal ingevoegde features: ").append(writtenFeatures).append("\n");
-            LOG.info("Aantal ingevoegde features: " + writtenFeatures);
+            opmerkingen.append("Aantal ingevoegde features voor: ").append(gmlFileName).append(": ").append(writtenFeatures).append("\n");
+            LOG.info("Aantal ingevoegde features voor " + gmlFileName + ": " + writtenFeatures);
         } catch (IOException ioe) {
             LOG.error("I/O database probleem tijdens insert van features", ioe);
             transaction.rollback();
